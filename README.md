@@ -1,2 +1,2 @@
 # gadgets
-Ihtiyac duyulabilecek basit code lar
+Ihtiyac duyulabilecek basit code lari icerir.
