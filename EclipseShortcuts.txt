@@ -1,0 +1,103 @@
+Eclipce shortcuts;
+https://dzone.com/articles/top-30-eclipse-keyboard-shortcuts-for-java-program-1
+30 Useful Eclipse Keyboard Shortcuts for Java Programmers
+Here is my list of 30 chosen Eclipse IDE keyboard shortcuts for Java developers. It's useful for both core Java developers and Java web application development using Eclipse IDE for web development.
+
+1) Ctrl + Shift + T for finding class even from jar
+
+This keyboard shortcut in Eclipse is my most used and favorite shortcut. While working with a high-speed trading system has a complex code, I often need to find classes with the just blink of the eye. This eclipse keyboard shortcut is made just for that. No matter whether you have class in your application or inside any JAR, this shortcut will find it.
+
+2) Ctrl + Shift + R for finding any resource (file), including config XML files
+
+This is similar to above Eclipse shortcut with the only difference being that it can find out not only Java files but any files including XML, configs, and many others. However, this eclipse shortcut only finds files from your workspace and doesn’t dig at the JAR level.
+
+3) Ctrl + 1 for quick fix
+
+This is another beautiful Eclipse shortcut that can fix up an error in Eclipse. Whether it’s missing declaration, missing semi-colon, or any import related error, this eclipse shortcut will help you to quickly sort that out.
+
+4) Ctrl + Shift + o for organize imports
+
+This is another Eclipse keyboard shortcut for fixing missing imports. This is particularly helpful if you copy some code from another file and import all dependencies. You can see the Beginners Eclipse Java IDE Training Course to learn more about code formatting shortcuts in Eclipse.
+
+
+
+Eclipse Shortcut for Quick Navigation
+In this section, we will see some Eclipse keyboard shortcuts that help us to quickly navigate within the file and between the file while reading and writing code in Eclipse.
+
+7) Ctrl + o for quick outline going quickly to a method
+
+9) Alt + right and Alt + left for going back and forth while editing
+
+12) Alt + Shift + W to show a classin  package explorer
+
+13) Ctrl + Shift + Up and down for navigating from member to member (variables and methods)
+
+15) Ctrl + k and Ctrl + Shift +K for find next/previous
+
+16) Go to a type declaration: F3, this Eclipse shortcut is very useful to see function definition very quickly.
+
+Apart from these keyboard shortcuts, learning how to debug Java programs in Eclipse is also a skill. There are so many debugging tools and features available in Eclipse, which many Java programmer don't know about, e.g. conditional debugging, hit count, and remote debugging.
+
+If you really want to become a good Java developer, I suggest you improve your debugging skills. If you need some help, Eclipse Debugging Techniques And Tricks is the best place to start with.
+
+Image title
+
+Eclipse Shortcut for Editing Code
+These Eclipse shortcuts are very helpful for editing code in Eclipse:
+
+5) Ctrl + / for commenting, uncommenting lines and blocks
+
+6) Ctrl + Shift + / for commenting, uncommenting lines with block comment, see here for example.
+
+8) Selecting class and pressing F4 to see its Type hierarchy
+
+10) Ctrl + F4 or Ctrl + w for closing current file
+
+11) Ctrl+Shirt+W for closing all files.
+
+14) Ctrl + l go to line
+
+16) Select text and press Ctrl + Shift + F for formatting.
+
+17) Ctrl + F for find, find/replace
+
+18) Ctrl + D to delete a line
+
+19) Ctrl + Q for going to last edited place
+
+
+
+You can see this free course on Udemy called Eclipse IDE for Beginners: Increase Your Java Productivity to find live examples for most of these shortcuts.
+
+Image title
+
+Miscellaneous Eclipse Shortcuts
+These are different Eclipse keyboard shortcuts that don't fit on any category, but they can be quite helpful while working in Eclipse.
+
+20) Ctrl + T for toggling between supertype and subtype
+
+21) Go to other open editors: Ctrl + E.
+
+22) Move to one problem (i.e.: error, warning) to the next (or previous) in a file: Ctrl +. For next, and Ctrl +, for the previous problem
+
+23) Hop back and forth through the files you have visited: Alt + ← and Alt + →, respectively
+
+25) CTRL+Shift+G, which searches the workspace for references to the selected method or variable
+
+26) Ctrl+Shift+L to view the listing for all Eclipse keyboard shortcuts
+
+27) Alt + Shift + j to add Javadoc at any place in Java source file
+
+28) CTRL+SHIFT+P to find closing brace. Place the cursor at the opening brace and use this.
+
+29) Alt+Shift+X, Q to run Ant build file using keyboard shortcuts in Eclipse
+
+30) Ctrl + Shift +F for autoformatting
+
+Others:
+Ctrl-Alt-Down: copies current line or selected lines to below
+
+Ctrl-Alt-Up:: copies current line or selected lines to above
+
+Ctrl-Shift-L: brings up a List of shortcut keys
+

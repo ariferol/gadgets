@@ -1,0 +1,111 @@
+﻿Proje Oluşturma & Kopyalama
+Komut	Açıklama
+git init	Yerel bir git reposu oluştur
+git clone ssh://git@github.com/[username]/[repository-name].git	Uzak sunucudaki git reposunu kopyala
+Temel Komutlar
+Komut	Açıklama
+git status	Repository durumunu kontrol et
+git add [file-name.txt]	Dosyayı çalışma dizinine ekle (Commit etmeye hazır hale getir)
+git add -A	Değiştirilmiş ya da yeni eklenmiş tüm dosyaları çalışma dizinine ekle
+git commit -m "[commit message]"	Değişiklikleri commit et
+git rm -r [file-name.txt]	Bir dosyayı/klasörü kaldır
+Dallanma & Birleşme
+Komut	Açıklama
+git branch	Tüm dalları listele (Yıldızlı olan o anki dalı işaret eder)
+git branch -a	Localdeki ve uzak sunucudaki tüm dalları listele
+git branch [branch name]	Yeni bir dal oluştur
+git branch -d [branch name]	Dalı sil
+git push origin --delete [branch name]	Uzak sunucudaki dalı sil
+git checkout -b [branch name]	Yeni bir dal oluştur ve ona geçiş yap
+git checkout -b [branch name] origin/[branch name]	Uzak sunucudaki dalı kopyala ve ona geçiş yap
+git checkout [branch name]	Başka bir dala geçiş yap
+git checkout -- [file-name.txt]	Dosyadaki değişiklikleri göz ardı et
+git merge [branch name]	Dalı o anda aktif olan dalla birleştir
+git merge [source branch] [target branch]	Dalları birleştir
+git stash	Değişiklikleri güvenli alana ekle
+git stash clear	Güvenli alandaki her şeyi temizle
+Projeyi Paylaşma & Güncelleme
+Komut	Açıklama
+git push origin [branch name]	Değişiklikleri uzak sunucuya gönder
+git push -u origin [branch name]	Değişiklikleri uzak sunucuya gönder ve bu dalı hatırla
+git push	Hatırlanan daldaki değişiklikleri uzak sunucuya gönder
+git push origin --delete [branch name]	Uzak sunucudaki bir dalı sil
+git pull	Uzak sunucudaki yeni dosyaları localdeki repoya çek
+git pull origin [branch name]	Uzak sunucuda bulunan daldaki yeni dosyaları localdeki repoya çek
+git remote add origin ssh://git@github.com/[username]/[repository-name].git	Uzak sunucu ekle
+Kontrol & Karşılaştırma
+Komut	Açıklama
+git log	Değişiklikleri görüntüle
+git log --summary	Değişiklikleri detaylı olarak görüntüle
+git diff [source branch] [target branch]	Birleştirme öncesi iki dal arasındaki farklılıkları görüntüle
+
+Not: Merge islemi yaparken;
+1) Degisiklikleri gorecegimiz branch e gecis yapiyoruz,
+2) Sonra merge konutunu calistiriyoruz(git merge [degisikliklerin alinacagi branch adi]) (eger conflict var ise browserdan login olup merge et)
+
+Ornegin; entegrasyon branchinde tum commitlerimizi bitirdikten sonra dev branch i ne entegrasyon branchindeki tum commitleri yansitabilmek icin;
+1) local dev branchinde iken; git pull ile tum romete degisiklikleri local dev branchimize aliyoruz,
+2) git checkout entegrasyon (local deki entegrasyon branchine gecis yaptik)
+3) git merge dev (local dev branchindeki tum degisiklikleri localdeki entegrasyon branchine aldik)
+4) local entegrasyon branchindeyken git push and commit komutlari ile yaptigimiz degisiklikleri entegrasyon branchine gonderiyoruz,
+5) git checkout dev (local dev brancine gecis yaptik)
+6) git merge entegrasyon (entegrasyon branchindeki yapmis oldugumuz tum commitleri localdeki dev branchine aldik)
+7) dev brancihinde iken merge sonrası mutlaka "git push" komutu ile merge edilen değişiklikleri remote daki dev branhine yansıtmış oluyoruz.
+Eger bu sorunlu ise; bu asamadan sonra localdeki bu merge request lerini web den login olup "Merge Requests/Open" bolumunden, once approve edip , sonra merge islemini tamamliyoruz.
+Merge islemi basarili olunca "Merged" kisminda gorulmelidir.
+
+Sample merge and conflict resolve senario;
+git reset --hard origin/dev (branche degisikliklerini resetliyoruz)
+git pull origin entegrasyon
+git switch dev
+git merge entegrasyon
+gedit SocialAid/pom.xml (Bu dosyadaki conflict editorde duzeltilip save edilir)
+git add SocialAid/pom.xml 
+git merge --continue
+git push origin dev (en son hali push edilir)
+git pull origin dev (local ile ayni olup olmadigi kontrol edilir)
+
+Sample new branch copy and switch;
+Alt satirda, bulunulan branch ten, uzak repodaki "PostgreSqlConnection" branchi local e kopyalanir ve "PostgreSqlConnection" branchine gecis yapilmis olur;
+git checkout -b PostgreSqlConnection origin/PostgreSqlConnection 
+
+git checkout -b maks_service (local repoda yeni 'maks_service' isminde yeni branch olusturur)
+git push -u origin maks_service (localdeki yeni olusturulan 'maks_service' isimli branch i remote repository e de ekler)
+
+
+--Tum degisiklikleri discard etmek;
+--en cok alt satirdakini kullanabilirsin;
+git reset --hard [branch name] # removes staged and working directory changes
+Sample:
+git reset --hard origin/PostgreSqlConnection
+
+git clean -f -d # remove untracked
+git clean -f -x -d # CAUTION: as above but removes ignored files like config.
+git clean -fxd :/ # CAUTION: as above, but cleans untracked and ignored files through the entire repo (without :/, the operation affects only the current directory)
+
+--ignore exclude filter ekleme ornek;
+git status (su anki git e gideceklerin durumunu inceliyoruz)
+--ignore dosyasinin olgugu folder in icine girip vim komutu ile aciyoruz;
+vim .gitignore ("i" karakterine basip yazma moduna gecis yapiyoruz)
+--ilgili degisiklikleri yaptiktan sonra "ESC" tusuna, sonra ":wq" yazip enter tusuna basip cikiyoruz. Kaydetmeden cikmak icin ise ":q!" kulaniyoruz.
+ornek icerik;
+**/.settings/
+**/target/
+**.project
+**.classpath
+**/nbactions.xml
+/WebAppNew/src/main/webapp/WEB-INF/glassfish-web.xml
+/IntegrationServices/nbproject/
+**/null/
+**.iml
+**.idea
+**.log
+**.log.lck
+**.class(".class ile baslayan tum dosyalari alt dizinler ile birlikte ignore eder")
+**/bin/**("icerisinde 'bin' gecen tum klasorleri ignore eder.")
+
+git merge --no-ff entegrasyon (var olan branch de local degisiklikleri dikkate almadan merge islemini '--no-ff' parametresi ile yapar)
+git push origin maks_service (en son hali push edilir)
+git pull origin maks_service (local ile ayni olup olmadigi kontrol edilir)
+
+

@@ -1,0 +1,269 @@
+﻿--Devam eden islem listesi;
+gnome-system-monitor (windows taki CTRL+ALT+DEL ile çıkan işlem listesi penceresini acar)
+
+--Printscreen kisayollari;
+Prt Sc to take a screenshot of the desktop.
+Alt+Prt Sc to take a screenshot of a window.
+Shift+Prt Sc to take a screenshot of an area you select.
+Ctrl+Shift+(fn tusuile beraber)Prt Sc ; secili alani clipboarda atar,x
+veya Ctrl+Shift+(fn tusuile beraber)End de secili alani clipboarda atiyor
+
+--Default browser open command;
+sensible-browser
+
+--Host file update;
+sudo nano /etc/hosts veya sudo gedit /etc/hosts
+--sonra nano editorde acilan host file icine ilgili direction ip bilgsini yazip CTRL+O ve ENTER ile kaydediyoruz.
+
+.deb uzantılı dosyaların kurulumu icin;
+sudo dpkg -i dosya_adi
+komutu ile install edebiliriz eger dependency leri var ise ve hata aldiysak;
+sudo apt install -f
+komutundan sonra kurulum komutunu tekrar calistirabiliriz.
+
+--linux surum bilgisi komutu:
+lsb_release -a
+
+--remote desktop
+xfreerdp +clipboard /multimon /d:INTDOMAIN /cert-ignore /sound:sys:pulse /microphone:sys:pulse +fonts +aero /rfx /f  /u:arif.erol /p:<password> /v:10.0.150.79:3389
+
+
+
+Not: fullscreen moddan cikmak icin CTRL+ALT+ENTER tus kombinasyonu kullaniliyor
+
+--rdesktop remote command;
+rdesktop -u arif.erol -p pass 10.0.150.79
+
+--JDK8 kurulum:
+--download ettigimiz dosyayi usr lib icine extract ediyoruz;
+sudo tar -C /usr/lib/jvm -zxf '/home/xxxuser/Downloads/jdk-8u251-linux-x64.tar.gz'sour
+--sonra switch edebilmek icin install ediyoruz;
+sudo update-alternatives --install "/usr/bin/java" "java" "/usr/lib/jvm/jdk1.8.0_251/bin/java" 1
+sudo update-alternatives --install "/usr/bin/javac" "javac" "/usr/lib/jvm/jdk1.8.0_251/bin/javac" 1
+--default jvm secimi yapma islemi;
+sudo update-alternatives --config java (komutundan sonra ilgili jvm in index degerini girip, enterliyoruz)
+java -version
+
+--Java home directory setleme;
+--Gedit ile text editorde environment dosyasinin icine home pathleri ekliyoruz;
+sudo  nano /etc/environment
+--alltaki satirlari ekliyoruz;
+JAVA_HOME=/usr/lib/jvm/jdk1.8.0_251
+JRE_HOME=/usr/lib/jvm/jdk1.8.0_251/jre
+--CTRL+S tuş kombinasyonu ile environment dosyasini kaydediyoruz.
+To check environment variables:
+source /etc/environment
+echo $JAVA_HOME
+
+--JDK HOME directory path ini bulmak icin terminal de asagidaki komutu yaziyoruz;
+echo $JAVA_HOME
+
+
+--Android studio yu manuel kurmak;
+--Sitesinden download ediyoruz. Sonra opt nsuin icine extract ediyoruz;
+sudo tar -C /opt -zxf '/home/xxxuser/Downloads/android-studio-ide-192.6392135-linux.tar.gz'
+--extract ettigimiz dosyalara erisim iznini degistiriyoruz;
+sudo chown -R xxxuser:xxxuser /opt/android-studio
+--Hizli baslatabilmek icin symlink olusturuyoruz;
+sudo ln -sf /opt/android-studio/bin/studio.sh /bin/android-studio
+--Uygulama shortcut i olusturuz;
+--Manuel;
+sudo nano /usr/share/applications/android-studio.desktop
+--komutu ile editorde alttaki satirlari ekliyoruz;
+[Desktop Entry]
+Version=1.0
+Type=Application
+Name=Android Studio 3.1.3
+Comment=Android Studio
+Exec=bash -i "/opt/android-studio/bin/studio.sh" %f
+Icon=/opt/android-studio/bin/studio.png
+--Otomatik shortcut icin ise; uygulama acilirken iken 'Configure' menusunden yada acildiktan sonra 'Tools' menusunden
+'Create Desktop Entry...' ile otomatik olusturabiliriz.
+--uygulamayi ilk kez calistirmak icin;
+cd /opt/android-studio/bin
+./studio.sh
+--kvm permission error resolve;
+sudo apt install qemu-kvm
+sudo adduser <username> kvm
+sudo adduser xxxuser kvm
+
+--Netbeans installation;
+--Once siteden .sh dosyasini download ediyoruz, sonra;
+cd /home/xxxuser/Downloads/
+chmod +x Apache-NetBeans-11.3-bin-linux-x64.sh
+sudo ./Apache-NetBeans-11.3-bin-linux-x64.sh
+--/opt icine yeni folder olusturup tam erisim yetkisi verip kuruluma devam ediyoruz;
+sudo mkdir -p /opt/netbeans-11.3
+sudo chmod 777 /opt/netbeans-11.3
+
+--wine ile palo alto .msi file i kurmak;
+wine msiexec /i '/home/xxxuser/Downloads/GlobalProtect64.msi'
+
+--112 VPN kurulumu;
+sudo apt-get install network-manager-vpnc-gnome
+--ustteki komut ile open vpn paketlerini install ediyoruz, sonra pc network ayarlarindan vpn ekleme ekraninda asagidaki parametre degerlerini giriyoruz,
+gateway: vpn.ng112.gov.tr
+group name: ng112
+group pass: Ng*ng112!
+
+--Xrdp server installation:
+--Server info commands alttaki dort command dir;
+lsb_release -a ; hostname -I ; hostname ; getconf LONG_BIT
+--Paketlerin install edilmesi;
+sudo apt-get update
+sudo apt-get install xrdp mate-core mate-desktop-environment mate-notification-daemon -y
+sudo sed -i.bak '/fi/a #xrdp multiple users configuration \n mate-session \n' /etc/xrdp/startwm.sh
+sudo ufw allow 3389/tcp
+
+--RealVNC server kurulum:
+sudo dpkg -i '/home/xxxuser/Downloads/VNC-Server-6.7.1-Linux-x64.deb' (normal kurulum)
+sudo systemctl start vncserver-x11-serviced.service #systemd /etc/init.d/vncserver-x11-serviced start #initd (acilista start olsun)
+sudo systemctl enable vncserver-x11-serviced.service #systemd update-rc.d vncserver-x11-serviced defaults #initd (acilista aktif olsun)
+--Daha sonra siteden uye olup realvnc server dan login oluyoruz. Karsi tarafa ta client viewer kurup signin olunca otomatik pcyi goruyor.
+--RealVNC uninstall icin;
+sudo apt-get purge realvnc-vnc-server
+
+--TigerVNC server kurulumu;
+--Server info commands alttaki dort command dir;
+lsb_release -a ; hostname -I ; hostname ; getconf LONG_BIT
+--Paketlerin install edilmesi;
+sudo apt-get install xfce4 xfce4-* vnc4server -y
+vncserver
+vncserver -kill :1
+mv ~/.vnc/xstartup  ~/.vnc/xstartup.bak
+nano ~/.vnc/xstartup
+--dosyanin icine alttaki satirlari ekleyip kaydediyoruz;
+#!/bin/bash
+xrdp $HOME/.Xresuorces
+startxfce4 &
+--Daha sonra startup dosyasini calistirilabilir yapiyoruz;
+chmod +x ~/.vnc/xstartup
+vncserver (son olarak vncserver i start ediyoruz, ondan sonra client tan test yapabiliriz)
+--TigerVNC uninstall;
+sudo apt-get remove xfce4 xfce4-* vnc4server
+sudo apt-get remove --auto-remove xfce4 xfce4-* vnc4server
+sudo apt-get purge --auto-remove xfce4 xfce4-* vnc4server
+
+--visual studio code kurulum;
+--.deb paketini , https://code.visualstudio.com/docs/setup/linux adresinden download ettikten sonra asagidaki komutu calistiriyoruz,
+sudo apt install '/home/xxxuser/Downloads/code_1.44.2-1587059832_amd64.deb'
+--Artik program listesinde arattigimizda bulabiliriz
+
+--Weblogic kurulum;
+unzip '/home/xxxuser/Downloads/fmw_14.1.1.0.0_wls_Disk1_1of1.zip'
+cd /opt/jdk/jdk1.8.0_251/bin
+./java -jar /home/xxxuser/Downloads/fmw_14.1.1.0.0_wls.jar
+./java -jar /home/xxxuser/Downloads/fmw_12.2.1.3.0_wls.jar
+
+--Yeni weblogic profile creat cmd;
+cd /Oracle/Middleware/Oracle_Home12/wlserver/common/bin
+./config.sh
+
+--Oracle sqldeveloper install rpm file; oracle sitesinden rpm file i download edip alien ile kurulum yapiyoruz;
+sudo apt-get install alien
+sudo alien -i sqldeveloper-19.4.0.354.1759-19.4.0-354.1759.noarch.rpm
+--kurulum sonrasi terminalde 'sqldeveloper' yazip sqldeveloper programini calistiriyoruz.
+
+--Sqldeveloper kisayolunu applications listesine ekleme;
+cd /usr/share/applications
+sudo gedit ./sqldeveloper.desktop
+--komutlari ile applicationslarin icine ilgili file i create edip icine asagidaki parametreleri girip kaydediyoruz;
+[Desktop Entry]
+Name=SQL Developer
+Comment=Oracle SQL Developer
+GenericName=SQL Developer for Linux
+Exec=sqldeveloper
+Type=Application
+Categories=GNOME;Oracle;
+StartupNotify=true
+Terminal=false
+
+--Terminalde hdd listesini alma komutu;
+sudo fdisk -l
+
+--Hdd Diskteki dolu bos yer miktari komutu;
+df -x squashfs --total
+
+
+--Yeni key generate etme ve kulllanma;
+ ssh-keygen -t rsa -b 4096 -C "xxxuser"
+ --komutu ile /home/xxxuser/.ssh/id_rsa pathine istersek bizim belirleyecegimiz yeni bir password ile key generate ediyoruz.
+ --Sonra .pub uzantili dosya icinden key i alip kullanabiliriz.
+
+ --flutter kurulum notlari;
+ --flutter folder ve komutuna user yetkisi veriyoruz;
+ sudo chmod 777  /home/xxxuser/development/flutter
+ sudo chown -R xxxuser /home/xxxuser/development/flutter
+ --sonra sitenin kenti installation document indeki kurulum komutlarini uyguluyoruz.
+
+ --ubuntu da, Oracle Virtualbox windows sanal makine baslatma hatasi cozumu;
+-- Asagidaki linkteki 'Steps to make it work, specifically for Ubuntu/Debian' baslikli cozum onerisini, 5. adima kadar yapip restart edince duzeliyor;
+-- https://askubuntu.com/questions/900118/vboxdrv-sh-failed-modprobe-vboxdrv-failed-please-use-dmesg-to-find-out-why
+
+ --ubuntu daki ses sorununun cozumu icin;
+ sudo gedit /etc/modprobe.d/alsa-base.conf
+ komutu ile config dosyasini acip en alt satira alttaki satiri ekleyip reboot ediyoruz;
+options snd-hda-intel dmic_detect=0
+
+--Dizin(folder) silme;
+sudo rm -rf /usr/lib/jvm/jdk1.8.0_251/
+
+--eclipse kurulum;
+--tar gz dosyasını download ettikten sonra;
+cd /home/xxxuser/Downloads/
+sudo tar -zxvf eclipse-jee-2020*-R-linux-gtk-x86_64.tar.gz -C /usr/
+sudo tar -zxvf eclipse-jee-2020-06-R-linux-gtk-x86_64.tar.gz -C /usr/
+
+sudo ln -s /usr/eclipse/eclipse /usr/bin/eclipse (eclipse linki olusturur)
+sudo gedit /usr/share/applications/eclipse.desktop
+--sonra dosya icerisine alttaki satirlari ekliyoruz;
+[Desktop Entry]
+Encoding=UTF-8
+Name=Eclipse IDE
+Comment=Eclipse IDE
+Exec=/usr/bin/eclipse
+Icon=/usr/eclipse/icon.xpm
+Terminal=false
+Type=Application
+StartupNotify=false
+
+--Rar dosyalarini acan pkt;
+sudo apt-get install unrar
+cd ~/Downloads/ ile rarin oldugu folder a giriyoruz
+sudo unrar e -r Jarlar.rar importedjars/
+
+--SSH Configleri:
+https://docs.gitlab.com/ee/ssh/
+https://www.tutorialspoint.com/gitlab/gitlab_ssh_key_setup.htm
+--RSA key olusturma ve agent baslatma;
+ssh-keygen -t rsa -b 4096 -C "arif.erol@icisleri.gov.tr"
+ssh-keygen -t rsa -b 2048 -C "arif.erol@icisleri.gov.tr" (minimum 2048 olmali)
+ssh-keygen -o -t rsa -b 4096 -C "arif.erol@icisleri.gov.tr" (tavsiye edilen 4096)
+eval ssh-agent -s (ssh agent i otamatik olarak baslatiyoruz)
+cat ~/.ssh/id_rsa.pub (cli da pub rsa i gorebilmek icin)
+--gitlab ssh clone komutu;
+sudo git clone git@gitlab.belediye.gov.tr:alper.uzanulu/eBelediye.git (bunu eclipse import wizardından yaptim)
+
+--eclipse shh config;
+https://wiki.eclipse.org/EGit/User_Guide/Remote#Eclipse_SSH_Configuration
+
+--ubuntu host file edit and open;
+sudo gedit /etc/hosts
+
+--Ubuntu 18.04 ;Skype kurumsala pidgin ile connect:
+--pidgini install ediyoruz;
+sudo add-apt-repository ppa:kip/pidgin
+sudo apt-get install pidgin
+--uninstall pidgin;
+sudo apt-get install ppa-purge && sudo ppa-purge ppa:kip/pidgin
+--sipe(office communicator) pluginini instal ediyoruz;
+$ sudo add-apt-repository ppa:sipe-collab/ppa
+$ sudo apt-get update
+$ sudo apt-get install pidgin-sipe
+
+--Aktif proces listesi search
+ps -ef (tum aktif process listesini getirir)
+ps -ef | grep ork (sadece icinde 'ork' gecen process listesini getirir)
+
+--pid den process kill etme;
+kill 19(pid no)

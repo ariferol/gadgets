@@ -1,0 +1,67 @@
+﻿--Bir projeyi clean and compile etme komutu;
+mvn clean compile
+mvn clean compile assembly:single (single profile ile)
+ 
+--Bir jari local repository e ekleme islemi;
+        <dependency>
+            <groupId>com.oracle</groupId>
+            <artifactId>ojdbc7</artifactId>
+            <version>12.1.0.1.0</version>
+        </dependency>
+--ubuntu icin komut;
+mvn deploy:deploy-file -DgroupId=com.oracle -DartifactId=ojdbc7 -Dversion=12.1.0.1.0 -Dpackaging=jar -Dfile=/home/xxxuser/Downloads/ojdbc7.jar -Durl=file:///home/xxxuser/.m2/repository/
+
+--windows icin komut; 
+mvn deploy:deploy-file -DgroupId=com.oracle -DartifactId=ojdbc7 -Dversion=12.1.0.1.0 -Dpackaging=jar -Dfile=D:\OJDBC\ojdbc7.jar -Durl=file:///c:\Users\arif.erol\.m2\repository\
+ 
+--Testleri atlatarak maven komutu calistirma islemi;
+mvn install -DskipTests
+
+--Testleri atlama zorunlulugu varsa kesin cozum alttaki komut;
+mvn install -Dmaven.test.skip=true
+ 
+ --Test etme komutlari;
+ # Run all the unit test classes.
+$ mvn test
+
+# Run a single test class.
+$ mvn -Dtest=TestApp1 test
+
+# Run multiple test classes.
+$ mvn -Dtest=TestApp1,TestApp2 test
+
+# Run a single test method from a test class.
+$ mvn -Dtest=TestApp1#methodname test
+
+# Run all test methods that match pattern 'testHello*' from a test class.
+$ mvn -Dtest=TestApp1#testHello* test
+
+# Run all test methods match pattern 'testHello*' and 'testMagic*' from a test class.
+$ mvn -Dtest=TestApp1#testHello*+testMagic* test
+ 
+ 
+ --Diger komutlar icin; https://www.journaldev.com/33645/maven-commands-options-cheat-sheet linkinden bakilabilir.
+--------------------------------------------------------------------------------------------------------------
+Log izlemek için:
+sudo su - oracle
+cd /u01/oracle/Middleware/user_projects/domains/base_domain/logs
+tail -f xxxxxxxx.log
+ 
+Weblogic start/stop islemi:
+1) sudo su
+2) su oracle
+2) cd /home/xxxuser/Oracle/Middleware/Oracle_Home12/user_projects/domains/base_domain/bin
+3) start islemi asagidaki iki komuttan biri ile calistirilabilir;
+   a) nohup ./startWebLogic.sh &
+   b) ./startWebLogic.sh &
+4) stop islemi de asagidaki iki komuttan biri ile calistirilabilir;
+   a) nohup ./stopWebLogic.sh &
+   b) ./stopWebLogic.sh &  
+Not : Komutlarin sonundaki ampersant işareti (&) arka planda çalışmasını sağlar. nohup ise çıkış yapıldığında kill edilmesini engeller
+
+--Sertifika import komutları;
+Default key store a sertifika import etme komutu
+{PATH}/jdk1.8.0_251/bin/keytool -importcert -file icisleri-gov-tr.cert -keystore {PATH}/jdk1.8.0_251/jre/lib/security/cacerts -alias test-alias-name
+
+Eklenen sertifa listeleme command:
+{PATH}/jdk1.8.0_251/bin/keytool –list –keystore {PATH}/jdk1.8.0_251/jre/lib/security/cacerts
