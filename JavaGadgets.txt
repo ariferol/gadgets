@@ -1,0 +1,16 @@
+Java pdf file upload and convert byte array, console application;
+try 
+{
+	FileInputStream fin=new FileInputStream("D:\\Example3.pdf");					
+	try {
+		evrakIcerik = org.apache.commons.io.IOUtils.toByteArray(fin);
+		eSize = evrakIcerik.length;
+	} catch (IOException e1) {
+		e1.printStackTrace();
+	}
+} 
+catch (FileNotFoundException e) 
+{
+	e.printStackTrace();
+}
+
