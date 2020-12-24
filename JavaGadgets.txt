@@ -13,4 +13,20 @@ catch (FileNotFoundException e)
 {
 	e.printStackTrace();
 }
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+Java classinin bulundugu packe in icinden ilgili txt file i upload etme islemi;
+StringBuilder signedFormData = new StringBuilder();
+        InputStream in = getClass().getResourceAsStream("TestData.txt");
+        try (BufferedReader br = new BufferedReader(new InputStreamReader(in, StandardCharsets.UTF_8));) {
+            String line;            
+            while ((line = br.readLine()) != null) {
+            signedFormData.append(line);
+            }
+        } catch (FileNotFoundException e1) {
+e1.printStackTrace();
+} catch (IOException e1) {
+e1.printStackTrace();
+}
+System.out.println("Son string buffer hali : " + signedFormData.toString());
 
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
