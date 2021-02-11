@@ -30,3 +30,11 @@ e1.printStackTrace();
 System.out.println("Son string buffer hali : " + signedFormData.toString());
 
 --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+Javada byte array datayi, fiziksel olarak hdd ye kaydetme islemi;
+try (FileOutputStream fos = new FileOutputStream("D:\\SampleXAdES.imz")) {
+	fos.write(imzalanmisByteArrayVeri);
+} catch (FileNotFoundException e1) {
+	e1.printStackTrace();
+} catch (IOException e1) {
+	e1.printStackTrace();
+}

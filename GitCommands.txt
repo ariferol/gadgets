@@ -104,8 +104,21 @@ ornek icerik;
 **.class(".class ile baslayan tum dosyalari alt dizinler ile birlikte ignore eder")
 **/bin/**("icerisinde 'bin' gecen tum klasorleri ignore eder.")
 
-git merge --no-ff entegrasyon (var olan branch de local degisiklikleri dikkate almadan merge islemini '--no-ff' parametresi ile yapar)
+git merge --no-ff entegrasyon (var olan branch de local degisiklikleri dikkate almadan merge islemini '--no-ff' parametresi ile yapar. Ornekte entegrasyon branchindekileri maks_service branchine merge ediyoruz, altta da repoya pushluyoruz)
 git push origin maks_service (en son hali push edilir)
 git pull origin maks_service (local ile ayni olup olmadigi kontrol edilir)
+
+--history log listesi alma;
+git log --all --full-history ./Baskan/src/main/java/gov/tbb/baskan/ui/dto/xxxSQL.java
+
+--Specific bir history logunu inceleme:
+git show a8112521c7b476c8dee87bd6fddd4fc8a17b2443 ./Baskan/src/main/java/gov/tbb/baskan/ui/dto/xxxSQL.java
+
+--silinmis branchi localden temizleme:
+git branch -d branch_name
+git remote prune origin --dry-run
+daha sonra ilgili folderdaki(C:\Users\xxx.user\git\eBelediye\.git\config) config dosyasinin icinden alttaki gibi branch ismi olan fetch row unu siliyoruz;
+	fetch = +refs/heads/branch_name:refs/remotes/origin/branch_name
+	
 
 
